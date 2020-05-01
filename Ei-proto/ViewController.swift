@@ -25,25 +25,21 @@ class ViewController: UIViewController {
 
 class Circle: UIView {
     override func draw(_ rect: CGRect) {
-        let path = UIBezierPath()
+        // 円弧 -------------------------------------
+        let r = Double(UIScreen.main.bounds.size.width / 2 - 20)
+        let arc = UIBezierPath(arcCenter: CGPoint(x:UIScreen.main.bounds.size.width / 2, y:UIScreen.main.bounds.size.height / 2), radius: CGFloat(r),  startAngle: 0, endAngle: CGFloat(2.0 * Double.pi), clockwise: false)
+        arc.lineWidth = 10
+        arc.stroke()
         
-        let radius: Double = Double(UIScreen.main.bounds.size.width / 2 - 20)
-        
-        let center = CGPoint(x: rect.width / 2, y: rect.height / 2)
-        
-        path.move(to: CGPoint(x: center.x + CGFloat(radius), y: center.y))
-        
-        for i in stride(from: 0, to: 361.0, by: 1) {
-            let radians = i * Double.pi / 180
-            
-            let x = Double(center.x) + radius * cos(radians)
-            let y = Double(center.y) + radius * sin(radians)
-            
-            path.addLine(to: CGPoint(x:x, y:y))
-            print(x, y)
+        for i in 0...12 {
+            let path2 = UIBezierPath()
+            let center2 = CGPoint(x: rect.width / 2, y: rect.height / 2)
+            path2.move(to:center2)
+            let radians = Double(i) * Double.pi / 6
+            let x2 = Double(center2.x) + r * cos(radians)
+            let y2 = Double(center2.y) + r * sin(radians)
+            path2.addLine(to: CGPoint(x:x2, y:y2))
+            path2.stroke()
         }
-        
-        path.stroke()
-        
     }
 }
